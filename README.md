@@ -13,7 +13,10 @@ To compile the client program run the following linux command
 
 #### Run.
 `./server` to start the server,
+
+_To enable the client to connect to the server, you need the server's hostname. run `hostname` or `hostnamectl` on your server to obtain this.
 `./client hostname` to start the client,
 
 #### Testing Timeout.
-- Uncomment the `sleep()` function in the `server.c` file, recompile and run the code.
+- Uncomment the `sleep()` function in the `server.c` file, recompile and run the code. or
+- Run the client program when the server is not running.

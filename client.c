@@ -154,8 +154,6 @@ int main(int argc, char *argv[]) {
         printf("Enter Text: ");
         scanf("%s", userInput);
 
-        if(strcmp(userInput, "q") == 0) break;
-
         strcpy(message.data, userInput);
         message.length = strlen(message.data);
 
@@ -164,7 +162,7 @@ int main(int argc, char *argv[]) {
             retries = 0;
             printf("Server: %s\n", reply.data);
         } else if(status == TIMEOUT)  {
-            if(retries <= RETRY){
+            if(retries < RETRY){
                 printf("Retrying Operation...\n");
                 retries++;
                 goto DoOperation;

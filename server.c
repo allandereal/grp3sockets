@@ -73,7 +73,8 @@ Status GetRequest(Message *callMessage, int serverSocket, SocketAddress *clientS
 }
 
 Status SendReply(Message *replyMessage, int socketNumber, SocketAddress *clientSocketAddress) {
-    return UDPsend(socketNumber, replyMessage, clientSocketAddress);
+    Status sendStatus = UDPsend(socketNumber, replyMessage, clientSocketAddress);
+    return sendStatus;
 }
 
 /* make a socket address using any of the addressses of this computer
@@ -108,12 +109,20 @@ int main(int argc, char *argv[]) {
         exit(EXIT_FAILURE);
     }
 
-    memset(userInput, 0, sizeof(userInput));
-    memset(fromClient.data, 0, SIZE);
-    memset(toClient.data, 0, SIZE);
-
     for (;;) {
+        memset(userInput, 0, sizeof(userInput));
+        memset(fromClient.data, 0, SIZE);
+        memset(toClient.data, 0, SIZE);
+
         Status status = GetRequest(&fromClient, serverSocketNumber, &clientSocketAddress);
+        if(strcmp(fromClient.data, "q") == 0){
+            strcpy(toClient.data, "Server terminated.\n");
+            toClient.length = SIZE;
+            SendReply(&toClient, serverSocketNumber, &clientSocketAddress);
+            printf("%s", toClient.data);
+            close(serverSocketNumber);
+            break;
+        }
 
         //uncomment the line below to test the timeout feature
         //sleep(5); 
@@ -136,14 +145,8 @@ int main(int argc, char *argv[]) {
                 }
 
             }
-
-            Status replyStatus = SendReply(&toClient, serverSocketNumber, &clientSocketAddress);
-            if (replyStatus != OK) break;
+            SendReply(&toClient, serverSocketNumber, &clientSocketAddress);
         }
-
-        memset(userInput, 0, sizeof(userInput));
-        memset(fromClient.data, 0, SIZE);
-        memset(toClient.data, 0, SIZE);
     }
 
 
