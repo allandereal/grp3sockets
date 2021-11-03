@@ -115,6 +115,7 @@ int main(int argc, char *argv[]) {
         memset(toClient.data, 0, SIZE);
 
         Status status = GetRequest(&fromClient, serverSocketNumber, &clientSocketAddress);
+
         if(strcmp(fromClient.data, "q") == 0){
             strcpy(toClient.data, "Server terminated.\n");
             toClient.length = SIZE;
@@ -128,28 +129,19 @@ int main(int argc, char *argv[]) {
         //sleep(5); 
         if (status == OK) {
             printf("Client : %s\n", fromClient.data);
+            toClient.length = SIZE;
             if (isExpression(fromClient.data) == 1) {
                 int result = evaluateExpression(fromClient.data);
                 sprintf(toClient.data, "%d", result);
-                toClient.length = SIZE;
-
             } else {
-                if (strcmp(fromClient.data, "Stop") == 0) {
-                    strcpy(toClient.data, "Ok");
-                    toClient.length = SIZE;
-                    SendReply(&toClient, serverSocketNumber, &clientSocketAddress);
-                    break;
-                } else if (strcmp(fromClient.data, "Ping") == 0) {
-                    strcpy(toClient.data, "Ok");
-                    toClient.length = SIZE;
-                }
-
+                strcpy(toClient.data, "Please enter a valid Arithmetic Expression!");                 
             }
-            SendReply(&toClient, serverSocketNumber, &clientSocketAddress);
+        } else {
+            strcpy(toClient.data, "Wrong Length!"); 
         }
+
+        SendReply(&toClient, serverSocketNumber, &clientSocketAddress);
     }
 
-
-    close(serverSocketNumber);
     return 0;
 }

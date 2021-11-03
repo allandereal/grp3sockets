@@ -23,7 +23,7 @@
 #define PORT     8080
 #define MAXLINE  1024
 #define SIZE  1024
-#define TIMEOUT_SEC 5
+#define TIMEOUT_SEC 10
 #define RETRY 3
 
 typedef struct {
