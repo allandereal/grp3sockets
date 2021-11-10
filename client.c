@@ -1,6 +1,9 @@
-//
-// Created by simon on 10/27/21.
-//
+/*
+How to test reliability of datagrams
+1- send an arithmetic expression that multiplies big numbers. 
+   The result will not be correct.
+2. Send input when the server is off.
+*/
 // Client side implementation of UDP client-server model
 #include <stdio.h>
 #include <stdlib.h>

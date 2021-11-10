@@ -1,7 +1,5 @@
-//
-// Created by simon on 10/27/21.
-//
 // Server side implementation of UDP client-server model
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <unistd.h>
@@ -27,6 +25,7 @@
 #include <string.h>
 #include <arpa/inet.h>
 #include <unistd.h>
+#include <math.h>
 
 #include "arithmetic.c"
 

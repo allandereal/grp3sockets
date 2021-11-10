@@ -6,7 +6,7 @@ Assignment to Implement Client and Server Socket RPC using UDP protocol in C
 _There are 2 programs:- Client program and Server program._
 
 To compile the client program run the following linux command
-`gcc server.c -o server`
+`gcc server.c -o server -lm`
 
 To compile the client program run the following linux command
 `gcc client.c -o client`
